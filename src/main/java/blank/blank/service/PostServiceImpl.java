@@ -39,4 +39,10 @@ public class PostServiceImpl implements PostService {
         List<PostModel> posts = postRep.findByTitleContainingIgnoreCase(title);
         return posts.isEmpty() ? null : posts.get(0);
     }
+
+    @override
+    public void deletePostById(Long id)
+    {
+        postRep.deleteById(id);
+    }
 }

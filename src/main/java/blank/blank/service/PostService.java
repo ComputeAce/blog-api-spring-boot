@@ -10,4 +10,5 @@ public interface PostService {
     List<PostModel> getAllPosts();
     PostModel getPostById(Long id);
     PostModel getPostByTitle(String title);
+    void deletePostById(Long id);
 }

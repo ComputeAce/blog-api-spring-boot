@@ -36,6 +36,22 @@ public class PostController {
         }
     }
 
+    @DeleteMapping("/delete-post/{id}")
+    public ResponseEntity<Void> deletePostById(@PathVariable("id") Long id)
+    {   
+        if(id == null)
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        PostModel post = postService.getPostById(id); 
+        if (post == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        postService.deletePostById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping("search-post/{title}")
     public ResponseEntity<PostModel> getPostByTitle(@PathVariable("title") String title) {
         PostModel post = postService.getPostByTitle(title);
