@@ -3,8 +3,12 @@ package blank.blank.service;
 import blank.blank.models.UserModel;
 import blank.blank.rep.UserRep;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -14,6 +18,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AuthenticationManager authManager;
+
+    @Autowired
+    private JWTService jwtService;
 
     @Override
     public UserModel registerUser(UserModel user) {
@@ -25,5 +35,25 @@ public class UserServiceImpl implements UserService {
 
         return userRep.save(user);
     }
+
+        @Override
+        public String login(String email, String rawPassword) {
+            UserModel user = userRep.findByEmail(email)
+                    .orElse(null);
+
+            if (user == null) {
+                return null; 
+            }
+
+            if (passwordEncoder.matches(rawPassword, user.getPassword())) {
+                return jwtService.generateToken(email);
+            } else {
+                return "";
+            }
+        }
+
+
+    }
+
     
-}
+

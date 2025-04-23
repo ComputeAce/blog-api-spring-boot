@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,28 @@ public class UserController {
             return ResponseEntity.badRequest().body(response);
         }
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserModel user) {
+        if (user.getEmail() == null || user.getPassword() == null) {
+            return ResponseEntity.badRequest().body("Email and password cannot be null");
+        }
+
+        if (user.getEmail().isEmpty() || user.getPassword().isEmpty()) {
+            return ResponseEntity.badRequest().body("Email and password cannot be empty");
+        }
+
+        String token = userService.login(user.getEmail(), user.getPassword());
+
+        if (token == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email");
+        } else if (token.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password");
+        }
+
+        return ResponseEntity.ok(token);
+    }
+
 
     
 
