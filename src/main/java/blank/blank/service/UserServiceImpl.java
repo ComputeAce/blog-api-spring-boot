@@ -37,8 +37,8 @@ public class UserServiceImpl implements UserService {
     }
 
         @Override
-        public String login(String email, String rawPassword) {
-            UserModel user = userRep.findByEmail(email)
+        public String login(String username, String rawPassword) {
+            UserModel user = userRep.getUserByUsername(username)
                     .orElse(null);
 
             if (user == null) {
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
             }
 
             if (passwordEncoder.matches(rawPassword, user.getPassword())) {
-                return jwtService.generateToken(email);
+                return jwtService.generateToken(username);
             } else {
                 return "";
             }

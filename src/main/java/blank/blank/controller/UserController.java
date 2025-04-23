@@ -33,18 +33,18 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserModel user) {
-        if (user.getEmail() == null || user.getPassword() == null) {
+        if (user.getUsername() == null || user.getPassword() == null) {
             return ResponseEntity.badRequest().body("Email and password cannot be null");
         }
 
-        if (user.getEmail().isEmpty() || user.getPassword().isEmpty()) {
+        if (user.getUsername().isEmpty() || user.getPassword().isEmpty()) {
             return ResponseEntity.badRequest().body("Email and password cannot be empty");
         }
 
-        String token = userService.login(user.getEmail(), user.getPassword());
+        String token = userService.login(user.getUsername(), user.getPassword());
 
         if (token == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username");
         } else if (token.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password");
         }
