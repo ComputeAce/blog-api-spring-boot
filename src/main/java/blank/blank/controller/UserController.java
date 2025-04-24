@@ -35,21 +35,19 @@ public class UserController {
     public ResponseEntity<Map<String, String>> login(@RequestBody UserModel user) {
         Map<String, String> response = new HashMap<>();
         
-        // Validate input
         if (user.getUsername() == null || user.getPassword() == null) {
             response.put("message", "Username and password cannot be null");
             return ResponseEntity.badRequest().body(response);
         }
 
-        // Attempt login
         String token = userService.login(user.getUsername(), user.getPassword());
         
         if (token != null) {
-            response.put("token", token);  // Return JWT token if login is successful
+            response.put("token", token); 
             return ResponseEntity.ok(response);
         } else {
             response.put("message", "Invalid username or password");
-            return ResponseEntity.status(401).body(response);  // Unauthorized if login fails
+            return ResponseEntity.status(401).body(response); 
         }
     }
 
