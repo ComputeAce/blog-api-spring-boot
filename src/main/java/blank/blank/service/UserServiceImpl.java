@@ -46,6 +46,7 @@ public class UserServiceImpl implements UserService {
             }
 
             if (passwordEncoder.matches(rawPassword, user.getPassword())) {
+                System.out.println("Password matches for user: " + username);
                 return jwtService.generateToken(username);
             } else {
                 return "";

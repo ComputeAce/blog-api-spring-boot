@@ -32,24 +32,25 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserModel user) {
+    public ResponseEntity<Map<String, String>> login(@RequestBody UserModel user) {
+        Map<String, String> response = new HashMap<>();
+        
+        // Validate input
         if (user.getUsername() == null || user.getPassword() == null) {
-            return ResponseEntity.badRequest().body("Email and password cannot be null");
+            response.put("message", "Username and password cannot be null");
+            return ResponseEntity.badRequest().body(response);
         }
 
-        if (user.getUsername().isEmpty() || user.getPassword().isEmpty()) {
-            return ResponseEntity.badRequest().body("Email and password cannot be empty");
-        }
-
+        // Attempt login
         String token = userService.login(user.getUsername(), user.getPassword());
-
-        if (token == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username");
-        } else if (token.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password");
+        
+        if (token != null) {
+            response.put("token", token);  // Return JWT token if login is successful
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("message", "Invalid username or password");
+            return ResponseEntity.status(401).body(response);  // Unauthorized if login fails
         }
-
-        return ResponseEntity.ok(token);
     }
 
 
