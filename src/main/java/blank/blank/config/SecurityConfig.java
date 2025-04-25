@@ -22,8 +22,8 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/users/login", "/api/users/register", "/api/posts/posts").permitAll()
-                .anyRequest().authenticated()
+                .requestMatchers("/api/users/loginqqqqq").authenticated() // Only this endpoint requires authentication
+                .anyRequest().permitAll() // All others are publicly accessible
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 

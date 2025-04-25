@@ -1,0 +1,9 @@
+<script>start("c:\\Users\\napht\\Desktop\\Projects\\izyane_erp\\izyane_erp\\templates\\notification\\");</script>
+<script>onHasParentDirectory();</script>
+<script>addRow("assets","assets",1,0,"0 B",1743546007,"4/2/25, 12:20:07 AM");</script>
+<script>addRow("leave_application_email.html","leave_application_email.html",0,3381,"3.3 kB",1745494003,"4/24/25, 1:26:43 PM");</script>
+<script>addRow("leave_application_info.html","leave_application_info.html",0,3248,"3.2 kB",1745494012,"4/24/25, 1:26:52 PM");</script>
+<script>addRow("new_employee.html","new_employee.html",0,3440,"3.4 kB",1745491738,"4/24/25, 12:48:58 PM");</script>
+<script>addRow("password_reset_email.html","password_reset_email.html",0,11664,"11.4 kB",1739958938,"2/19/25, 11:55:38 AM");</script>
+<script>addRow("salary_advance_email.html","salary_advance_email.html",0,3446,"3.4 kB",1745328788,"4/22/25, 3:33:08 PM");</script>
+<script>addRow("salary_advance_info.html","salary_advance_info.html",0,3254,"3.2 kB",1745328801,"4/22/25, 3:33:21 PM");</script>
